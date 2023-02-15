@@ -22,7 +22,8 @@ window.onload = () => {
   let btnCerrar = document.getElementById("btnCerrar");
   let inputEmail = document.getElementById("email");
   let inputPassword = document.getElementById("password");
-  var sectionLogin = document.getElementById("section_login");
+  let sectionLogin = document.getElementById("section_login");
+  let sectionMain = document.getElementById("section_main");
   //Asociamos eventos
   btnLogin.addEventListener("click", () => {
     let email = inputEmail.value;
@@ -54,11 +55,13 @@ window.onload = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //Login
-      alert(auth.currentUser.email)
+
       sectionLogin.hidden = true;
+      sectionMain.hidden=false;
     } else {
-      alert("cerrando sesión");
+
       sectionLogin.hidden = false;
+      sectionMain.hidden=true;
       //logout
     }
   });
