@@ -1,11 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  getAuth, signInWithEmailAndPassword, onAuthStateChanged,
+import {getAuth, signInWithEmailAndPassword, onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   signOut
 } from "firebase/auth";
+import {getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,} from 'firebase/firestore';
 import { getFirebaseConfig } from "./firebase-config";
 
 const firebaseAppConfig = getFirebaseConfig();
@@ -24,6 +27,13 @@ window.onload = () => {
   let inputPassword = document.getElementById("password");
   let sectionLogin = document.getElementById("section_login");
   let sectionMain = document.getElementById("section_main");
+  let btnCrearCita=document.getElementById("btnCrearCita");
+  let inputNombre=document.getElementById("nombre");
+  let inputApellido=document.getElementById("apellido");
+  let inputTelefono=document.getElementById("telefono");
+  let inputHora=document.getElementById("hora");
+  let inputFecha=document.getElementById("fecha");
+  let inputSintomas=document.getElementById("sintomas");
   //Asociamos eventos
   btnLogin.addEventListener("click", () => {
     let email = inputEmail.value;
@@ -51,6 +61,18 @@ window.onload = () => {
     signOut(auth);
   })
 
+  btnCrearCita.addEventListener("click",()=>{
+    let cita={
+      nombre:inputNombre.value,
+      apellido:inputApellido.value,
+      telefono:inputTelefono.value,
+      fecha:inputFecha.value,
+      hora:inputHora.value,
+      sintomas:inputSintomas.value
+    }
+    crearCita(cita);
+  })
+
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -73,4 +95,17 @@ async function signIn() {
   // Sign in Firebase using popup auth and Google as the identity provider.
   var provider = new GoogleAuthProvider();
   await signInWithPopup(getAuth(), provider);
+}
+
+// Saves a new Object to Cloud Firestore.
+async function crearCita(cita) {
+  // Add a new object entry to the Firebase database.
+  cita.timestamp=serverTimestamp();
+  cita.user=getAuth().currentUser.email;
+  try {
+    await addDoc(collection(getFirestore(), 'citas'), cita);
+  }
+  catch(error) {
+    alert('Error writing new cita to Firebase Database', error);
+  }
 }
