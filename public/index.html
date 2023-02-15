@@ -8,7 +8,9 @@
     <title>Firebase</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="scripts/main.js"></script>
 </head>
 
@@ -37,56 +39,56 @@
               ">
                         <div class="card-body p-5 shadow-5 text-center">
                             <h2 class="fw-bold mb-5">Sign In now</h2>
-                          
 
 
-                                <!-- Email input -->
-                                <div class="form-outline mb-4">
-                                    <input type="email" required id="email" class="form-control" />
-                                    <label class="form-label" for="email">Email address</label>
-                                </div>
 
-                                <!-- Password input -->
-                                <div class="form-outline mb-4">
-                                    <input type="password" required id="password" class="form-control" />
-                                    <label class="form-label" for="password">Password</label>
-                                </div>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="email" required id="email" class="form-control" />
+                                <label class="form-label" for="email">Email address</label>
+                            </div>
 
-                                <!-- Checkbox -->
-                                <div class="form-check d-flex justify-content-center mb-4">
-                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33"
-                                        checked />
-                                    <label class="form-check-label" for="form2Example33">
-                                        Subscribe to our newsletter
-                                    </label>
-                                </div>
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" required id="password" class="form-control" />
+                                <label class="form-label" for="password">Password</label>
+                            </div>
 
-                                <!-- Submit button -->
-                                <button id="btnLogin" class="btn btn-primary btn-block mb-4">
-                                    Sign in
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33"
+                                    checked />
+                                <label class="form-check-label" for="form2Example33">
+                                    Subscribe to our newsletter
+                                </label>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button id="btnLogin" class="btn btn-primary btn-block mb-4">
+                                Sign in
+                            </button>
+
+                            <!-- Register buttons -->
+                            <div class="text-center">
+                                <p>or sign up with:</p>
+                                <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-facebook-f"></i>
                                 </button>
 
-                                <!-- Register buttons -->
-                                <div class="text-center">
-                                    <p>or sign up with:</p>
-                                    <button type="button" class="btn btn-link btn-floating mx-1">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </button>
+                                <button type="button" id="btnGoogle" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-google"></i>
+                                </button>
 
-                                    <button type="button" id="btnGoogle" class="btn btn-link btn-floating mx-1">
-                                        <i class="fab fa-google"></i>
-                                    </button>
+                                <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-twitter"></i>
+                                </button>
 
-                                    <button type="button" class="btn btn-link btn-floating mx-1">
-                                        <i class="fab fa-twitter"></i>
-                                    </button>
+                                <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-github"></i>
+                                </button>
+                                
+                            </div>
 
-                                    <button type="button" class="btn btn-link btn-floating mx-1">
-                                        <i class="fab fa-github"></i>
-                                    </button>
-                                    <button id="btnCerrar">Cerrar</button>
-                                </div>
-                           
                         </div>
                     </div>
                 </div>
@@ -100,64 +102,71 @@
         <!-- Jumbotron -->
     </section>
     <!-- Section: Design Block -->
-   <section  id="section_main">
-    <h2 class="text-center my-5 titulo">Clinica Dentale</h2>
-    <div class="container mt-5 p-5">
-        <div id="contenido" class="row">
-            <div class="col-md-6 agregar-cita">
-                <form id="nueva-cita">
-                    <h2 class="mb-4 text-center">Datos del Paciente</h2>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Nombre:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre Paciente">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Apellido:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            
-                            <input type="text" id="apellido" name="apellido" class="form-control"  placeholder="Apellido Paciente">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Teléfono:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="tel" id="telefono" name="telefono" class="form-control"  placeholder="Número de Teléfono">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Fecha:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="date" id="fecha" name="fecha" class="form-control">
-                        </div>
-                    </div>
+    <section id="section_main">
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Hora:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="time" id="hora" name="hora" class="form-control">
+        <nav class="navbar fixed-top navbar-light bg-light">
+            <a class="navbar-brand" href="#">Clinica Dentale</a>
+            <span id="username"></span><span id="btnCerrar"><i class="fa-solid fa-lock"></i></span>
+        </nav>
+        <div class="container mt-5 p-5">
+            <div id="contenido" class="row">
+                <div class="col-md-6 agregar-cita">
+                    <form id="nueva-cita">
+                        <h2 class="mb-4 text-center">Datos del Paciente</h2>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Nombre:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="text" id="nombre" name="nombre" class="form-control"
+                                    placeholder="Nombre Paciente">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Apellido:</label>
+                            <div class="col-sm-8 col-lg-8">
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Sintomas:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <textarea id="sintomas" name="sintomas" class="form-control"></textarea>
+                                <input type="text" id="apellido" name="apellido" class="form-control"
+                                    placeholder="Apellido Paciente">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Teléfono:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="tel" id="telefono" name="telefono" class="form-control"
+                                    placeholder="Número de Teléfono">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Fecha:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="date" id="fecha" name="fecha" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Hora:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="time" id="hora" name="hora" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Sintomas:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <textarea id="sintomas" name="sintomas" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-success w-100 d-block">Crear Cita</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <h2 id="administra" class="mb-4 text-center">Administra tus Citas</h2>
-                <ul id="citas" class="list-group lista-citas"></ul>
-            </div>
-        </div> <!--.row-->
-    </div><!--.container-->
-   </section>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h2 id="administra" class="mb-4 text-center">Administra tus Citas</h2>
+                    <ul id="citas" class="list-group lista-citas"></ul>
+                </div>
+            </div> <!--.row-->
+        </div><!--.container-->
+    </section>
 </body>
 
 </html>

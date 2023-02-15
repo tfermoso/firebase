@@ -55,9 +55,11 @@ window.onload = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //Login
-
       sectionLogin.hidden = true;
       sectionMain.hidden=false;
+      let username=user.displayName!=null?user.displayName:user.email;
+      document.getElementById("username").innerText=username;
+    
     } else {
 
       sectionLogin.hidden = false;
