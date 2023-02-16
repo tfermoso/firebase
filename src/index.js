@@ -7,6 +7,7 @@ import {
   signOut
 } from "firebase/auth";
 import {
+  firestore,
   getFirestore,
   collection,
   addDoc,
@@ -15,7 +16,8 @@ import {
   query,
   orderBy,
   limit,
-  onSnapshot
+  onSnapshot,
+  deleteDoc
 } from 'firebase/firestore';
 import { getFirebaseConfig } from "./firebase-config";
 
@@ -145,8 +147,26 @@ window.onload = () => {
       })
       
       document.getElementById("citas").innerHTML=citas;
-      
+      let btnsBorrar=document.getElementsByClassName("borrarCita");
+      for (let i = 0; i < btnsBorrar.length; i++) {
+        btnsBorrar[i].addEventListener("click",(e)=>{
+           let idDoc=e.currentTarget.parentElement.id;
+           borrarCita(idDoc);
+        })
+
+      }
     });
+  }
+
+  function borrarCita(idDoc){
+    let docRef=doc(getFirestore(),"citas",idDoc);
+    deleteDoc(docRef)
+    .then(()=>{
+      
+    })
+    .catch((err)=>{
+      alert(err)
+    })
   }
 
   cargarCitas();
