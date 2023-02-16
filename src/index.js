@@ -41,6 +41,7 @@ window.onload = () => {
   let btnCerrar = document.getElementById("btnCerrar");
   let inputEmail = document.getElementById("email");
   let inputPassword = document.getElementById("password");
+  let inputSearch = document.getElementById("inputSearch");
   let sectionLogin = document.getElementById("section_login");
   let sectionMain = document.getElementById("section_main");
   let btnCrearCita = document.getElementById("btnCrearCita");
@@ -74,6 +75,42 @@ window.onload = () => {
     signIn();
   })
 
+  inputSearch.addEventListener("keyup", (e) => {
+    let texto = e.currentTarget.value;
+    const citasQuery = query(collection(getFirestore(), 'citas'), orderBy('timestamp', 'desc'));
+    onSnapshot(citasQuery, function (snapshot) {
+      let citas = "";
+      snapshot.forEach(doc => {
+        let cita = doc.data();
+        if (cita.nombre.indexOf(texto)>=0 || cita.apellido.indexOf(texto)>=0) {
+          citas += `<div id=${doc.id} class="cita col-6"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
+        <p>Sintomas: ${cita.sintomas}</p>
+        <i class="fa-solid fa-trash borrarCita"></i>
+        <i class="fa-solid fa-pen-to-square editarCita"></i></div>`;
+        }
+
+      })
+
+      document.getElementById("citas").innerHTML = citas;
+      let btnsBorrar = document.getElementsByClassName("borrarCita");
+      for (let i = 0; i < btnsBorrar.length; i++) {
+        btnsBorrar[i].addEventListener("click", (e) => {
+          let idDoc = e.currentTarget.parentElement.id;
+          borrarCita(idDoc);
+        })
+      }
+      let btnsEditar = document.getElementsByClassName("editarCita");
+      for (let i = 0; i < btnsEditar.length; i++) {
+        btnsEditar[i].addEventListener("click", (e) => {
+          let idDoc = e.currentTarget.parentElement.id;
+          editarCita(idDoc)
+        })
+
+      }
+    });
+  })
+
   btnCerrar.addEventListener("click", () => {
     signOut(auth);
   })
@@ -100,8 +137,8 @@ window.onload = () => {
     }
     updateDoc(docRef, cita)
       .then(() => {
-        borrarCampos();        
-       })
+        borrarCampos();
+      })
       .catch((err) => { alert(err) })
 
 
@@ -165,7 +202,7 @@ window.onload = () => {
       let citas = "";
       snapshot.forEach(doc => {
         let cita = doc.data();
-        citas += `<div id=${doc.id} class="cita col-5"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        citas += `<div id=${doc.id} class="cita col-6"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
         <p>Sintomas: ${cita.sintomas}</p>
         <i class="fa-solid fa-trash borrarCita"></i>
