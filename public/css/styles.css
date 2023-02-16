@@ -54,3 +54,10 @@ textarea {
 svg {
   width: 21px;
 }
+.cita{
+  border:1px solid black;
+}
+.citas{
+  display: flex;
+  flex-direction: row  !important;
+}

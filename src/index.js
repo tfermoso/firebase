@@ -137,7 +137,9 @@ window.onload = () => {
       let citas="";
       snapshot.forEach(doc=>{
         let cita=doc.data();
-        citas+=`<p>${cita.nombre} ${cita.apellido}</p>`;
+        citas+=`<div class="cita col-5"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
+        <p>Sintomas: ${cita.sintomas}</p></div>`;
       })
       
       document.getElementById("citas").innerHTML=citas;
