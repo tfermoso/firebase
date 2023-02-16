@@ -130,19 +130,22 @@ window.onload = () => {
 
   function cargarCitas() {
     // Create the query to load the last 12 messages and listen for new ones.
-    const recentCitasQuery = query(collection(getFirestore(), 'citas'), orderBy('timestamp', 'desc'), limit(12));
+    const recentCitasQuery = query(collection(getFirestore(), 'citas'), orderBy('timestamp', 'desc'), limit(8));
     
     // Start listening to the query.
     onSnapshot(recentCitasQuery, function(snapshot) {
       let citas="";
       snapshot.forEach(doc=>{
         let cita=doc.data();
-        citas+=`<div class="cita col-5"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        citas+=`<div id=${doc.id} class="cita col-5"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
-        <p>Sintomas: ${cita.sintomas}</p></div>`;
+        <p>Sintomas: ${cita.sintomas}</p>
+        <i class="fa-solid fa-trash borrarCita"></i>
+        <i class="fa-solid fa-pen-to-square editarCita"></i></div>`;
       })
       
       document.getElementById("citas").innerHTML=citas;
+      
     });
   }
 

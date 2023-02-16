@@ -56,8 +56,19 @@ svg {
 }
 .cita{
   border:1px solid black;
+  position: relative;
 }
 .citas{
   display: flex;
   flex-direction: row  !important;
+}
+.borrarCita{
+  position: absolute;
+  top:5px;
+  right: 5px;
+}
+.editarCita{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
