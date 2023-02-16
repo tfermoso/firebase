@@ -17,7 +17,8 @@ import {
   orderBy,
   limit,
   onSnapshot,
-  deleteDoc
+  deleteDoc,
+  getDoc
 } from 'firebase/firestore';
 import { getFirebaseConfig } from "./firebase-config";
 
@@ -26,7 +27,7 @@ const firebaseAppConfig = getFirebaseConfig();
 // Initialize Firebase
 const app = initializeApp(firebaseAppConfig);
 const auth = getAuth();
-
+var citaSnap=null;
 
 
 
@@ -41,6 +42,7 @@ window.onload = () => {
   let sectionLogin = document.getElementById("section_login");
   let sectionMain = document.getElementById("section_main");
   let btnCrearCita = document.getElementById("btnCrearCita");
+  let btnEditarCita=document.getElementsByClassName("btnEditarCita")[0];
   let inputNombre = document.getElementById("nombre");
   let inputApellido = document.getElementById("apellido");
   let inputTelefono = document.getElementById("telefono");
@@ -84,6 +86,9 @@ window.onload = () => {
       sintomas: inputSintomas.value
     }
     crearCita(cita);
+  })
+  btnEditarCita.addEventListener("click",()=>{
+    alert(btnEditarCita.id);
   })
 
 
@@ -153,7 +158,14 @@ window.onload = () => {
            let idDoc=e.currentTarget.parentElement.id;
            borrarCita(idDoc);
         })
-
+      }
+      let btnsEditar=document.getElementsByClassName("editarCita");
+      for (let i = 0; i < btnsEditar.length; i++) {
+        btnsEditar[i].addEventListener("click",(e)=>{
+          let idDoc = e.currentTarget.parentElement.id;
+          editarCita(idDoc)
+        })
+        
       }
     });
   }
@@ -167,6 +179,23 @@ window.onload = () => {
     .catch((err)=>{
       alert(err)
     })
+  }
+   async function editarCita(idDoc){
+    let docRef=doc(getFirestore(),"citas",idDoc);
+    citaSnap = await getDoc(docRef);
+    inputNombre.value=citaSnap.data().nombre;
+    inputApellido.value=citaSnap.data().apellido;
+    inputHora.value=citaSnap.data().hora;
+    inputFecha.value=citaSnap.data().fecha;
+    inputTelefono.value=citaSnap.data().telefono;
+    inputSintomas.value=citaSnap.data().sintomas;
+    btnCrearCita.classList.remove("d-block");
+    btnCrearCita.classList.add("d-none");
+    btnEditarCita.id="btn-"+citaSnap.id;
+    btnEditarCita.classList.remove("d-none");
+    btnEditarCita.classList.add("d-block");
+
+    
   }
 
   cargarCitas();

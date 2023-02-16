@@ -1,4 +1,4 @@
 node_modules
 src/firebase-config.js
 *.log
-public/scripts
+public/scripts/main.js
