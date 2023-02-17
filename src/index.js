@@ -210,7 +210,21 @@ window.onload = () => {
       let inputsFile = document.getElementsByClassName("inputFile");
       for (let i = 0; i < inputsFile.length; i++) {
         inputsFile[i].addEventListener("change", (e) => {
-          file=e.target.files[0];
+          let file = e.target.files[0];
+          if (file){
+             if (file.type.match("image.*") || file.type.match("application/pdf")) {
+              if (file.size < 3 * 1024 * 1024) {
+                //Subo el fichero a firestorage
+              } else {
+                alert("Imagen no válida");
+              }
+            }else{
+              alert("Fichero no válido")
+            }
+          }else{
+            alert("Fichero no válido")
+          }
+           
 
         })
       }
