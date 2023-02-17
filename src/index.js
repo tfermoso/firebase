@@ -185,10 +185,14 @@ window.onload = () => {
       let citas = "";
       snapshot.forEach(doc => {
         let cita = doc.data();
+        let citaImgs="";
+        if(cita.imageUrl!=null)
+        citaImgs=`<div><img src=${cita.imageUrl} width="50" height="50"></div>`;
         if (cita.nombre.toLowerCase().indexOf(texto.toLowerCase()) >= 0 || cita.apellido.toLowerCase().indexOf(texto.toLowerCase()) >= 0) {
           citas += `<div id=${doc.id} class="cita col-md-6 col-sm-12"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
         <p>Sintomas: ${cita.sintomas}</p>
+        ${citaImgs}
         <i class="fa-solid fa-trash borrarCita"></i>
         <i class="fa-solid fa-pen-to-square editarCita"></i>
         <label>
