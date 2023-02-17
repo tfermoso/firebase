@@ -186,8 +186,16 @@ window.onload = () => {
       snapshot.forEach(doc => {
         let cita = doc.data();
         let citaImgs="";
-        if(cita.imageUrl!=null)
-        citaImgs=`<div><img src=${cita.imageUrl} width="50" height="50"></div>`;
+        if(cita.imageUrl!=null){
+
+          if(cita.storageUri.indexOf(".pdf")>=0){
+            citaImgs=`<div><a target="_blank" href='${cita.imageUrl}'><i  class="fa-2x fa-solid fa-file-pdf"></i></a></div>`;
+          }else{
+            citaImgs=`<div><a target="_blank" href='${cita.imageUrl}'><img src=${cita.imageUrl} width="50" height="50"></a></div>`;
+          }
+          
+
+        }
         if (cita.nombre.toLowerCase().indexOf(texto.toLowerCase()) >= 0 || cita.apellido.toLowerCase().indexOf(texto.toLowerCase()) >= 0) {
           citas += `<div id=${doc.id} class="cita col-md-6 col-sm-12"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
