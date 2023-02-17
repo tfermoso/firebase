@@ -21,8 +21,15 @@ import {
   deleteDoc,
   updateDoc,
   setDoc,
-  getDoc
+  getDoc,
+  FieldPath
 } from 'firebase/firestore';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage';
 import { getFirebaseConfig } from "./firebase-config";
 
 const firebaseAppConfig = getFirebaseConfig();
@@ -210,11 +217,14 @@ window.onload = () => {
       let inputsFile = document.getElementsByClassName("inputFile");
       for (let i = 0; i < inputsFile.length; i++) {
         inputsFile[i].addEventListener("change", (e) => {
+          let idDoc = e.currentTarget.parentElement.parentElement.id;
           let file = e.target.files[0];
           if (file){
              if (file.type.match("image.*") || file.type.match("application/pdf")) {
               if (file.size < 3 * 1024 * 1024) {
                 //Subo el fichero a firestorage
+                saveImageCita(file,idDoc)
+              
               } else {
                 alert("Imagen no válida");
               }
@@ -230,7 +240,28 @@ window.onload = () => {
       }
     });
   }
+  async function saveImageCita(file,idDoc) {
+    try {
+        
+      // 2 - Upload the image to Cloud Storage.
+      const filePath = `${getAuth().currentUser.uid}/${idDoc}/${file.name}`;
+      const newImageRef = ref(getStorage(), filePath);
+      const fileSnapshot = await uploadBytesResumable(newImageRef, file);
+      
+      // 3 - Generate a public URL for the file.
+      const publicImageUrl = await getDownloadURL(newImageRef);
+      let docRef = doc(getFirestore(), "citas", idDoc);
 
+      
+      // 4 - Update the chat message placeholder with the image's URL.
+      await updateDoc(docRef,{
+        imageUrl: publicImageUrl,
+        storageUri: fileSnapshot.metadata.fullPath
+      });
+    } catch (error) {
+      console.error('There was an error uploading a file to Cloud Storage:', error);
+    }
+  }
   function borrarCita(idDoc) {
     docRef = doc(getFirestore(), "citas", idDoc);
     deleteDoc(docRef)
