@@ -72,3 +72,8 @@ svg {
   bottom: 5px;
   right: 5px;
 }
+.subirFichero{
+  position: absolute;
+  right: 5px;
+  top:50px;
+}

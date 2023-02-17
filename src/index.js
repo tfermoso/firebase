@@ -178,12 +178,17 @@ window.onload = () => {
       let citas = "";
       snapshot.forEach(doc => {
         let cita = doc.data();
-        if (cita.nombre.indexOf(texto) >= 0 || cita.apellido.indexOf(texto) >= 0) {
-          citas += `<div id=${doc.id} class="cita col-6"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        if (cita.nombre.toLowerCase().indexOf(texto.toLowerCase()) >= 0 || cita.apellido.toLowerCase().indexOf(texto.toLowerCase()) >= 0) {
+          citas += `<div id=${doc.id} class="cita col-md-6 col-sm-12"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
         <p>Sintomas: ${cita.sintomas}</p>
         <i class="fa-solid fa-trash borrarCita"></i>
-        <i class="fa-solid fa-pen-to-square editarCita"></i></div>`;
+        <i class="fa-solid fa-pen-to-square editarCita"></i>
+        <label >
+        <input  class="inputFile d-none" type="file" > 
+        <i class="fa-solid fa-image subirFichero" (click)=""></i>
+        </label>
+        </div>`;
         }
       })
 
