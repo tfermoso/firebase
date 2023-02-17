@@ -184,8 +184,8 @@ window.onload = () => {
         <p>Sintomas: ${cita.sintomas}</p>
         <i class="fa-solid fa-trash borrarCita"></i>
         <i class="fa-solid fa-pen-to-square editarCita"></i>
-        <label >
-        <input  class="inputFile d-none" type="file" > 
+        <label>
+        <input  class="inputFile d-none" type="file" accept="image/gif, image/jpeg, application/pdf" > 
         <i class="fa-solid fa-image subirFichero" (click)=""></i>
         </label>
         </div>`;
@@ -206,7 +206,13 @@ window.onload = () => {
           let idDoc = e.currentTarget.parentElement.id;
           editarCita(idDoc)
         })
+      }
+      let inputsFile = document.getElementsByClassName("inputFile");
+      for (let i = 0; i < inputsFile.length; i++) {
+        inputsFile[i].addEventListener("change", (e) => {
+          file=e.target.files[0];
 
+        })
       }
     });
   }
@@ -240,7 +246,7 @@ window.onload = () => {
 
   }
 
-  
+
 }
 
 
