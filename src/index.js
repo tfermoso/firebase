@@ -16,6 +16,7 @@ import {
   query,
   orderBy,
   limit,
+  where,
   onSnapshot,
   deleteDoc,
   updateDoc,
@@ -76,40 +77,14 @@ window.onload = () => {
   })
 
   inputSearch.addEventListener("keyup", (e) => {
-    let texto = e.currentTarget.value;
-    const citasQuery = query(collection(getFirestore(), 'citas'), orderBy('timestamp', 'desc'));
-    onSnapshot(citasQuery, function (snapshot) {
-      let citas = "";
-      snapshot.forEach(doc => {
-        let cita = doc.data();
-        if (cita.nombre.indexOf(texto)>=0 || cita.apellido.indexOf(texto)>=0) {
-          citas += `<div id=${doc.id} class="cita col-6"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
-        <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
-        <p>Sintomas: ${cita.sintomas}</p>
-        <i class="fa-solid fa-trash borrarCita"></i>
-        <i class="fa-solid fa-pen-to-square editarCita"></i></div>`;
-        }
+    cargarCitas();
 
-      })
-
-      document.getElementById("citas").innerHTML = citas;
-      let btnsBorrar = document.getElementsByClassName("borrarCita");
-      for (let i = 0; i < btnsBorrar.length; i++) {
-        btnsBorrar[i].addEventListener("click", (e) => {
-          let idDoc = e.currentTarget.parentElement.id;
-          borrarCita(idDoc);
-        })
-      }
-      let btnsEditar = document.getElementsByClassName("editarCita");
-      for (let i = 0; i < btnsEditar.length; i++) {
-        btnsEditar[i].addEventListener("click", (e) => {
-          let idDoc = e.currentTarget.parentElement.id;
-          editarCita(idDoc)
-        })
-
-      }
-    });
   })
+
+
+
+
+
 
   btnCerrar.addEventListener("click", () => {
     signOut(auth);
@@ -152,7 +127,7 @@ window.onload = () => {
       sectionMain.hidden = false;
       let username = user.displayName != null ? user.displayName : user.email;
       document.getElementById("username").innerText = username;
-
+      cargarCitas();
     } else {
 
       sectionLogin.hidden = false;
@@ -194,19 +169,22 @@ window.onload = () => {
   }
 
   function cargarCitas() {
+    let texto = inputSearch.value;
     // Create the query to load the last 12 messages and listen for new ones.
-    const recentCitasQuery = query(collection(getFirestore(), 'citas'), orderBy('timestamp', 'desc'), limit(8));
+    const recentCitasQuery = query(collection(getFirestore(), 'citas'), where("user", "==", auth.currentUser.email), orderBy('timestamp', 'desc'), limit(8));
 
     // Start listening to the query.
     onSnapshot(recentCitasQuery, function (snapshot) {
       let citas = "";
       snapshot.forEach(doc => {
         let cita = doc.data();
-        citas += `<div id=${doc.id} class="cita col-6"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        if (cita.nombre.indexOf(texto) >= 0 || cita.apellido.indexOf(texto) >= 0) {
+          citas += `<div id=${doc.id} class="cita col-6"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
         <p>Sintomas: ${cita.sintomas}</p>
         <i class="fa-solid fa-trash borrarCita"></i>
         <i class="fa-solid fa-pen-to-square editarCita"></i></div>`;
+        }
       })
 
       document.getElementById("citas").innerHTML = citas;
@@ -257,7 +235,7 @@ window.onload = () => {
 
   }
 
-  cargarCitas();
+  
 }
 
 
